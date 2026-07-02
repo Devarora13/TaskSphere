@@ -14,3 +14,15 @@ The React Compiler is not enabled on this template because of its impact on dev 
 ## Expanding the Oxlint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+
+## Production API Configuration
+
+Set `VITE_API_URL` before building the frontend when the API is hosted on a different origin.
+
+Example:
+
+```bash
+VITE_API_URL=https://api.yourdomain.com
+```
+
+If you keep the frontend and backend behind the same origin, you can leave it unset and the app will continue to use relative `/api` requests.
