@@ -134,7 +134,7 @@ Ensure you have the following installed on your machine:
 ## 📖 API Documentation & Swagger
 
 When the backend is running, the interactive Swagger documentation page is available at:
-👉 **[http://localhost:5000/api-docs](http://localhost:5000/api-docs)**
+👉 **[Click here](https://tasksphere-gzly.onrender.com/api-docs/)**
 
 You can use the swagger panel to test endpoints. Use the `/auth/login` response token to authorize operations via the **Authorize (lock)** button by prefixing: `Bearer <your_token>`.
 
