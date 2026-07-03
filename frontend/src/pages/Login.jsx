@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { FaTriangleExclamation } from "react-icons/fa6";
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -42,7 +43,7 @@ const Login = () => {
           <p>Log in to manage your tasks securely.</p>
         </div>
 
-        {error && <div className="auth-error-banner">⚠️ {error}</div>}
+        {error && <div className="auth-error-banner"><FaTriangleExclamation aria-hidden="true" /> Email or password is incorrect</div>}
 
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">

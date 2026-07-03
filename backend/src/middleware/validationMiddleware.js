@@ -6,13 +6,10 @@ const validate = (req, res, next) => {
     return next();
   }
   
-  const extractedErrors = {};
+  const extractedErrors = [];
   errors.array().forEach(err => {
-    const field = err.path || err.param;
-    if (!extractedErrors[field]) {
-      extractedErrors[field] = [];
-    }
-    extractedErrors[field].push(err.msg);
+    const errMsg = err.msg;
+    extractedErrors.push(errMsg);
   });
 
   return res.status(400).json({

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { FaTriangleExclamation } from "react-icons/fa6";
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -31,7 +32,7 @@ const Register = () => {
       await register(name.trim(), email.trim(), password, role);
       navigate('/');
     } catch (err) {
-      setError(err.message || 'Registration failed. Email might already be in use.');
+      setError(err.errors[0] || 'Registration failed. Email might already be in use.');
     } finally {
       setLoading(false);
     }
@@ -45,7 +46,7 @@ const Register = () => {
           <p>Sign up to start tracking your tasks.</p>
         </div>
 
-        {error && <div className="auth-error-banner">⚠️ {error}</div>}
+        {error && <div className="auth-error-banner"><FaTriangleExclamation aria-hidden="true" /> {error}</div>}
 
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
@@ -86,15 +87,28 @@ const Register = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="reg-role">Role (For Testing / Evaluation) *</label>
-            <select
-              id="reg-role"
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-            >
-              <option value="USER">User (Standard Access)</option>
-              <option value="ADMIN">Admin (Full Control Panel)</option>
-            </select>
+            <label htmlFor="reg-role">Role</label>
+            <div className="role-picker" role="radiogroup" aria-labelledby="reg-role">
+              <button
+                type="button"
+                className={`role-option ${role === 'USER' ? 'active' : ''}`}
+                onClick={() => setRole('USER')}
+                aria-pressed={role === 'USER'}
+              >
+                <span className="role-option-title">User</span>
+                <span className="role-option-subtitle">Standard Access</span>
+              </button>
+
+              <button
+                type="button"
+                className={`role-option ${role === 'ADMIN' ? 'active' : ''}`}
+                onClick={() => setRole('ADMIN')}
+                aria-pressed={role === 'ADMIN'}
+              >
+                <span className="role-option-title">Admin</span>
+                <span className="role-option-subtitle">Full Control Panel</span>
+              </button>
+            </div>
             <small className="form-hint">
               * Note: The very first user registered is automatically assigned ADMIN privileges.
             </small>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { FaRocket } from "react-icons/fa";
 
 const Navbar = () => {
   const { user, logout, isAuthenticated, isAdmin } = useAuth();
@@ -15,7 +16,7 @@ const Navbar = () => {
     <nav className="navbar glass-effect">
       <div className="navbar-container">
         <Link to="/" className="navbar-logo">
-          <span className="logo-icon">🚀</span>
+          <FaRocket className="logo-icon" aria-hidden="true" />
           <span className="logo-text">TaskSphere</span>
         </Link>
 

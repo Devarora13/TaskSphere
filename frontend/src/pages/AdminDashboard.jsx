@@ -3,6 +3,14 @@ import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import TaskCard from '../components/TaskCard';
 import Loader from '../components/Loader';
+import {
+  FaChevronLeft,
+  FaChevronRight,
+  FaClipboardList,
+  FaCircleCheck,
+  FaTriangleExclamation,
+  FaUsers,
+} from 'react-icons/fa6';
 
 const AdminDashboard = () => {
   const { user: currentAdmin } = useAuth();
@@ -100,7 +108,7 @@ const AdminDashboard = () => {
       return;
     }
     
-    if (!window.confirm(`⚠️ WARNING: Are you sure you want to delete user "${name}"?\nThis will permanently purge their account and ALL of their tasks!`)) {
+    if (!window.confirm(`WARNING: Are you sure you want to delete user "${name}"?\nThis will permanently purge their account and ALL of their tasks!`)) {
       return;
     }
 
@@ -135,8 +143,8 @@ const AdminDashboard = () => {
         </div>
       </header>
 
-      {successMsg && <div className="banner success-banner">✅ {successMsg}</div>}
-      {errorMsg && <div className="banner error-banner">⚠️ {errorMsg}</div>}
+      {successMsg && <div className="banner success-banner"><FaCircleCheck aria-hidden="true" /> {successMsg}</div>}
+      {errorMsg && <div className="banner error-banner"><FaTriangleExclamation aria-hidden="true" /> {errorMsg}</div>}
 
       {/* Tabs selectors */}
       <div className="admin-tabs">
@@ -144,13 +152,13 @@ const AdminDashboard = () => {
           onClick={() => { setActiveTab('users'); setPage(1); }}
           className={`tab-btn ${activeTab === 'users' ? 'active' : ''}`}
         >
-          👥 User Directory ({users.length})
+          <FaUsers aria-hidden="true" /> User Directory ({users.length})
         </button>
         <button
           onClick={() => { setActiveTab('tasks'); setPage(1); }}
           className={`tab-btn ${activeTab === 'tasks' ? 'active' : ''}`}
         >
-          📋 System Task Audit
+          <FaClipboardList aria-hidden="true" /> System Task Audit
         </button>
       </div>
 
@@ -217,7 +225,7 @@ const AdminDashboard = () => {
             <div className="search-box">
               <input
                 type="text"
-                placeholder="🔍 Search all titles/descriptions/users..."
+                placeholder="Search all titles/descriptions/users..."
                 value={search}
                 onChange={(e) => { setSearch(e.target.value); setPage(1); }}
               />
@@ -269,7 +277,7 @@ const AdminDashboard = () => {
                     disabled={page === 1}
                     className="btn btn-outline btn-sm"
                   >
-                    ◀ Previous
+                    <FaChevronLeft aria-hidden="true" /> Previous
                   </button>
                   <span className="pagination-info">
                     Page <strong>{page}</strong> of <strong>{meta.totalPages}</strong>
@@ -279,7 +287,7 @@ const AdminDashboard = () => {
                     disabled={page === meta.totalPages}
                     className="btn btn-outline btn-sm"
                   >
-                    Next ▶
+                    Next <FaChevronRight aria-hidden="true" />
                   </button>
                 </div>
               )}

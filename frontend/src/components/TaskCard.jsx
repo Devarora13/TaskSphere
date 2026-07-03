@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaCalendarDays, FaPenToSquare, FaTrash, FaUser } from 'react-icons/fa6';
 
 const TaskCard = ({ task, onEdit, onDelete, currentUserId, currentUserRole }) => {
   const formatDate = (dateString) => {
@@ -23,6 +24,8 @@ const TaskCard = ({ task, onEdit, onDelete, currentUserId, currentUserRole }) =>
   const isAdmin = currentUserRole === 'ADMIN';
   const canManage = isOwner || isAdmin;
 
+  const isEditDisabled = !onEdit || onEdit.toString().replace(/\s+/g, '') === '()=>{}';
+
   return (
     <div className={`task-card glass-effect ${task.status.toLowerCase()}-card`}>
       <div className="task-card-header">
@@ -36,7 +39,7 @@ const TaskCard = ({ task, onEdit, onDelete, currentUserId, currentUserRole }) =>
         </div>
         {task.owner && isAdmin && (
           <span className="task-owner-badge" title={task.owner.email}>
-            👤 {task.owner.name}
+            <FaUser aria-hidden="true" /> {task.owner.name}
           </span>
         )}
       </div>
@@ -46,25 +49,25 @@ const TaskCard = ({ task, onEdit, onDelete, currentUserId, currentUserRole }) =>
 
       <div className="task-card-footer">
         <div className={`task-due-date ${isExpired(task.dueDate) ? 'overdue' : ''}`}>
-          📅 {formatDate(task.dueDate)}
+          <FaCalendarDays aria-hidden="true" /> {formatDate(task.dueDate)}
           {isExpired(task.dueDate) && <span className="overdue-tag">Overdue</span>}
         </div>
 
         {canManage && (
           <div className="task-actions">
-            <button
+            {!isEditDisabled && <button
               onClick={() => onEdit(task)}
-              className="btn btn-outline btn-xs edit-btn"
+              className="btn btn-outline btn-sm edit-btn"
               title="Edit Task"
             >
-              ✏️ Edit
-            </button>
+              <FaPenToSquare aria-hidden="true" />
+            </button>}
             <button
               onClick={() => onDelete(task.id)}
-              className="btn btn-danger-outline btn-xs delete-btn"
+              className="btn btn-danger-outline btn-sm delete-btn"
               title="Delete Task"
             >
-              🗑️ Delete
+              <FaTrash aria-hidden="true" />
             </button>
           </div>
         )}

@@ -4,6 +4,14 @@ import { useAuth } from '../context/AuthContext';
 import TaskCard from '../components/TaskCard';
 import TaskForm from '../components/TaskForm';
 import Loader from '../components/Loader';
+import {
+  FaChevronLeft,
+  FaChevronRight,
+  FaClipboardList,
+  FaCircleCheck,
+  FaPlus,
+  FaTriangleExclamation,
+} from 'react-icons/fa6';
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -125,20 +133,20 @@ const Dashboard = () => {
           <p className="subtitle">Manage your daily checklist and priorities.</p>
         </div>
         <button onClick={openCreateModal} className="btn btn-primary create-task-btn">
-          ➕ Create Task
+          <FaPlus aria-hidden="true" /> Create Task
         </button>
       </header>
 
       {/* Message banners */}
-      {successMessage && <div className="banner success-banner">✅ {successMessage}</div>}
-      {errorMessage && <div className="banner error-banner">⚠️ {errorMessage}</div>}
+      {successMessage && <div className="banner success-banner"><FaCircleCheck aria-hidden="true" /> {successMessage}</div>}
+      {errorMessage && <div className="banner error-banner"><FaTriangleExclamation aria-hidden="true" /> {errorMessage}</div>}
 
       {/* Filters and Search Bar Section */}
       <div className="filter-controls-bar glass-effect">
         <div className="search-box">
           <input
             type="text"
-            placeholder="🔍 Search tasks..."
+            placeholder="Search tasks..."
             value={search}
             onChange={(e) => {
               setSearch(e.target.value);
@@ -209,7 +217,7 @@ const Dashboard = () => {
         </div>
       ) : tasks.length === 0 ? (
         <div className="empty-state glass-effect">
-          <div className="empty-icon">🗭</div>
+          <div className="empty-icon"><FaClipboardList aria-hidden="true" /></div>
           <h3>No tasks found</h3>
           <p>Try refining your search, modifying filters, or create a brand new task!</p>
           <button onClick={openCreateModal} className="btn btn-outline">
@@ -239,7 +247,7 @@ const Dashboard = () => {
                 disabled={page === 1}
                 className="btn btn-outline btn-sm"
               >
-                ◀ Previous
+                <FaChevronLeft aria-hidden="true" /> Previous
               </button>
               <span className="pagination-info">
                 Page <strong>{page}</strong> of <strong>{meta.totalPages}</strong>
@@ -249,7 +257,7 @@ const Dashboard = () => {
                 disabled={page === meta.totalPages}
                 className="btn btn-outline btn-sm"
               >
-                Next ▶
+                Next <FaChevronRight aria-hidden="true" />
               </button>
             </div>
           )}
